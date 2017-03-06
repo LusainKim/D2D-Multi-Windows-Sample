@@ -37,7 +37,7 @@ constexpr LONG CLIENT_MINIMUM_HEIGHT = 480;
 #define USE_CAPTIONFPS_ALWAYS	 1
 #define USE_TITLE_STRING		 1
 #define USE_LIMIT_MAX_FPS		 1
-#define USE_DEBUG_WINDOW		 1
+#define USE_DEBUG_WINDOW		 0
 
 #define USE_EXTNED_TILE_FLAG	 1
 
@@ -61,7 +61,7 @@ constexpr LONG CLIENT_MINIMUM_HEIGHT = 480;
 #define TITLE_MAX_LENGTH 64
 
 #if USE_TITLE_STRING
-#define TITLESTRING	TEXT("Nemo Land")
+#define TITLESTRING	TEXT("Lab Project")
 #endif
 
 #define DEBUG_CLIENT_WIDTH	400
