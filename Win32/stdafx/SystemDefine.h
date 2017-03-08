@@ -34,7 +34,7 @@ constexpr LONG CLIENT_MINIMUM_HEIGHT = 480;
 
 // 캡션 FPS 출력 여부 -------------------
 // 항상 캡션에 FPS를 출력		(0 : 비활성 | 1 : 활성)
-#define USE_CAPTIONFPS_ALWAYS	 1
+#define USE_CAPTIONFPS_ALWAYS	 0
 #define USE_TITLE_STRING		 1
 #define USE_LIMIT_MAX_FPS		 1
 #define USE_DEBUG_WINDOW		 0

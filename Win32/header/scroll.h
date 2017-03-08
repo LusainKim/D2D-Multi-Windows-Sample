@@ -524,7 +524,8 @@ public:
 	virtual void Draw(ID2D1RenderTarget *pd2dRenderTarget, const D2D_POINT_2F& ptWorldPosition = Point2F(0.f, 0.f), ColorF color = ColorF::Black)
 	{
 		ID2D1SolidColorBrush *sbr;
-		pd2dRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &sbr);
+		auto hr = pd2dRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &sbr);
+		if (FAILED(hr)) return;
 		sbr->SetOpacity(m_fOpacity);
 
 		pd2dRenderTarget->FillRoundedRectangle(RoundedRect(m_rcScroll, m_flThickness * 0.5f, m_flThickness * 0.5f), sbr);

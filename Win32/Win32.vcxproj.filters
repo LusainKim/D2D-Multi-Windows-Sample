@@ -31,6 +31,9 @@
     <Filter Include="Scene\Title">
       <UniqueIdentifier>{032cdc53-f11a-4365-a139-56656d7570e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Edit">
+      <UniqueIdentifier>{a118c19f-d5b6-4e04-a3e1-ecae2c65bf0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMain.h">
@@ -90,6 +93,12 @@
     <ClInclude Include="Scene\Title\TitleScene.h">
       <Filter>Scene\Title</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\popupWindow.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Edit\EditScene.h">
+      <Filter>Scene\Edit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMain.cpp">
@@ -109,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="Scene\Title\TitleScene.cpp">
       <Filter>Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\popupWindow.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Edit\EditScene.cpp">
+      <Filter>Scene\Edit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
