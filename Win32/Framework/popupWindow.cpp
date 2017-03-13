@@ -29,7 +29,6 @@ bool CPopupWindowBase::Initialize(HWND hParentWnd, HINSTANCE hInstance)
 	scn->BuildObjects(L"Edit", m_hWnd, this);
 	m_lstScenes.push_back(move(scn));
 	m_pCurrentScene = m_lstScenes.back().get();
-	::SetTimer(m_hWnd, 0, 1, reinterpret_cast<TIMERPROC>(CPopupWindowBase::TimerProc));
 	return true;
 }
 
@@ -76,6 +75,109 @@ ATOM CPopupWindowBase::MyRegisterClass(HINSTANCE hInstance)
 	wcex.hIconSm = NULL;
 
 	return RegisterClassEx(&wcex);
+}
+
+bool CPopupWindowBase::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	switch (nMessageID)
+	{
+	case WM_LBUTTONDOWN:
+		break;
+	case WM_RBUTTONDOWN:
+		break;
+	case WM_MOUSEMOVE:
+		break;
+	case WM_LBUTTONUP:
+		break;
+	case WM_RBUTTONUP:
+		break;
+	default:
+		break;
+	}
+
+	return(false);
+}
+
+LRESULT CPopupWindowBase::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	if (m_hWnd != hWnd) return 0;
+	// 선처리 구문 : 개별 Scene에서 처리할 것인지 확인
+	switch (nMessageID)
+	{
+	case WM_SIZE:
+		{
+			auto m_nWndClientWidth = static_cast<LONG>(LOWORD(lParam));
+			auto m_nWndClientHeight = static_cast<LONG>(HIWORD(lParam));
+
+			if (m_nWndClientWidth < CLIENT_MINIMUM_WIDTH - GetMarginWidth())
+				m_nWndClientWidth = CLIENT_MINIMUM_WIDTH - GetMarginWidth();
+				
+			if (m_nWndClientHeight < CLIENT_MINIMUM_HEIGHT - GetMarginHeight())
+				m_nWndClientHeight = CLIENT_MINIMUM_HEIGHT - GetMarginHeight();
+
+
+
+			m_rcClient = RECT { 0, 0, m_nWndClientWidth, m_nWndClientHeight };
+
+			m_pd2dMultithread->Enter();
+			{
+				Render();
+			}
+			m_pd2dMultithread->Leave();
+
+			if (m_pCurrentScene)
+				if (m_pCurrentScene->OnProcessingWindowMessage(hWnd, nMessageID, wParam,lParam)) break;
+				else return 0;
+		}
+		break;
+	default:
+		if (m_pCurrentScene)	if (m_pCurrentScene->OnProcessingWindowMessage(hWnd, nMessageID, wParam, lParam)) break;
+								else return 0;
+	}
+
+	// 후처리 구문 : Scene에서 처리되지 않고 남는 부분을 처리
+	switch (nMessageID)
+	{
+	case WM_LBUTTONDOWN:
+	case WM_RBUTTONDOWN:
+	case WM_MOUSEMOVE:
+	case WM_LBUTTONUP:
+	case WM_RBUTTONUP:
+	case WM_MOUSEWHEEL:
+		OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
+		return 0;
+	case WM_KEYDOWN:
+	case WM_KEYUP:
+	case WM_CHAR:
+		OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
+		return 0;
+
+	default:
+		break;
+	}
+
+	return 0;
+}
+
+bool CPopupWindowBase::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	switch (nMessageID)
+	{
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_F1:
+			break;
+		case VK_ESCAPE:
+			::DestroyMessage(true);
+			::PostMessage(m_hWnd, WM_DESTROY, 0, 0);
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+	return(false);
 }
 
 bool CPopupWindowBase::CreatePopupWindow(HWND hParentWnd, HINSTANCE hInstance)
@@ -142,10 +244,10 @@ bool CPopupWindowBase::CreatePopupWindow(HWND hParentWnd, HINSTANCE hInstance)
 
 LRESULT CPopupWindowBase::WndProc(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	CPopupWindowBase* self = ::GetUserDataPtr<CPopupWindowBase*>(hWnd);
-
-	if (!self)
-		return ::DefWindowProc(hWnd, nMessageID, wParam, lParam);
+//	CPopupWindowBase* self = ::GetUserDataPtr<CPopupWindowBase*>(hWnd);
+//
+//	if (!self)
+//		return ::DefWindowProc(hWnd, nMessageID, wParam, lParam);
 
 	switch (nMessageID)
 	{
@@ -158,12 +260,4 @@ LRESULT CPopupWindowBase::WndProc(HWND hWnd, UINT nMessageID, WPARAM wParam, LPA
 	
 	return 0;
 }
-
-void CPopupWindowBase::TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime)
-{
-	auto self = ::GetUserDataPtr<CPopupWindowBase*>(hWnd);
-	self->FrameAdvance(0.016f);
-}
-
-
 

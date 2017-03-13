@@ -23,6 +23,15 @@ public:
 	void Update(float fTimeELapsed);
 	void Render();
 
+	// 후 처리가 없을 경우 true 반환
+	virtual bool OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
+	// 후 처리가 없을 경우 true 반환
+	virtual bool OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
+	// 후 처리가 없을 경우 true 반환
+	virtual LRESULT OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
+
+	virtual void CreateMultithread(ComPtr<ID2D1Multithread>&& mul) { m_pd2dMultithread = mul; }
+
 protected:
 
 	ATOM MyRegisterClass(HINSTANCE hInstance);
@@ -42,11 +51,12 @@ protected:
 
 	list<unique_ptr<CSceneDirect2D>>				m_lstScenes;
 	CSceneDirect2D								*	m_pCurrentScene{ nullptr };
+
 	ComPtr<ID2D1HwndRenderTarget>					m_hwndRenderTarget;
+	ComPtr<ID2D1Multithread>						m_pd2dMultithread { nullptr };
 
 public:
 
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
-	static void CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime);
 
 };

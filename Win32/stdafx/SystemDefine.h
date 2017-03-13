@@ -47,9 +47,9 @@ constexpr LONG CLIENT_MINIMUM_HEIGHT = 480;
 #define SHOW_CAPTIONFPS 
 #endif
 
-#if defined(SHOW_CAPTIONFPS)
+//#if defined(SHOW_CAPTIONFPS)
 #define MAX_UPDATE_FPS 1.0 / 3.0
-#endif
+//#endif
 
 // 최대 FPS
 #if USE_LIMIT_MAX_FPS
