@@ -4,10 +4,12 @@
 
 class CTimer
 {
+
+public:
 	CTimer();
 	virtual ~CTimer();
 
-	void Update();
+	bool Update();
 	double GetFPS() const { return { m_dCumulativefps / static_cast<double>(m_nCumulativefpsCount) }; }
 	double GetTimeElapsed() const { return m_TimeElapsed; }
 

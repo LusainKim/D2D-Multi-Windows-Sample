@@ -15,7 +15,7 @@ CTimer::~CTimer()
 {
 }
 
-void CTimer::Update()
+bool CTimer::Update()
 {
 	m_timeElapsed = chrono::system_clock::now() - m_current_time;
 	float fps = 0.f;
@@ -29,7 +29,7 @@ void CTimer::Update()
 			fps = 1.f / m_TimeElapsed;
 		}
 	}
-	else return;
+	else return false;
 
 
 
@@ -39,8 +39,10 @@ void CTimer::Update()
 	m_UpdateElapsed = chrono::system_clock::now() - m_LastUpdate_time;
 	if (m_UpdateElapsed.count() > MAX_UPDATE_FPS)
 		m_LastUpdate_time = chrono::system_clock::now();
-	else return;
+	else return true;
 
 	m_dCumulativefps = 0.0;
 	m_nCumulativefpsCount = 0;
+	
+	return true;
 }
