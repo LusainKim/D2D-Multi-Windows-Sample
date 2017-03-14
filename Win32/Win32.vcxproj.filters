@@ -34,6 +34,9 @@
     <Filter Include="Scene\Edit">
       <UniqueIdentifier>{a118c19f-d5b6-4e04-a3e1-ecae2c65bf0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Timer">
+      <UniqueIdentifier>{707c77dd-f4e1-45a3-9485-74f04450addb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMain.h">
@@ -99,6 +102,9 @@
     <ClInclude Include="Scene\Edit\EditScene.h">
       <Filter>Scene\Edit</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Timer\Timer.h">
+      <Filter>Framework\Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMain.cpp">
@@ -124,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Edit\EditScene.cpp">
       <Filter>Scene\Edit</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Timer\Timer.cpp">
+      <Filter>Framework\Timer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

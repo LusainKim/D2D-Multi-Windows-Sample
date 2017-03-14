@@ -163,6 +163,7 @@
       </ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Framework\popupWindow.h" />
+    <ClInclude Include="Framework\Timer\Timer.h" />
     <ClInclude Include="header\D2D_Operator.h" />
     <ClInclude Include="header\FixValue.h" />
     <ClInclude Include="header\IO.h" />
@@ -195,6 +196,7 @@
       </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Framework\popupWindow.cpp" />
+    <ClCompile Include="Framework\Timer\Timer.cpp" />
     <ClCompile Include="Scene\Edit\EditScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\Title\TitleScene.cpp" />
