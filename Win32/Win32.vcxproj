@@ -175,6 +175,7 @@
     <ClInclude Include="header\stringhash.h" />
     <ClInclude Include="header\Vector2D.h" />
     <ClInclude Include="header\WS_S_Conv.h" />
+    <ClInclude Include="MakeFullscreen.h" />
     <ClInclude Include="Scene\Edit\EditScene.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\Title\TitleScene.h" />

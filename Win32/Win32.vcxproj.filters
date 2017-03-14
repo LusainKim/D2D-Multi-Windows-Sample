@@ -105,6 +105,9 @@
     <ClInclude Include="Framework\Timer\Timer.h">
       <Filter>Framework\Timer</Filter>
     </ClInclude>
+    <ClInclude Include="MakeFullscreen.h">
+      <Filter>헤더 파일\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMain.cpp">
