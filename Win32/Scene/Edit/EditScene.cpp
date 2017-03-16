@@ -13,7 +13,7 @@ bool CEditScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wPa
 	switch (nMessageID)
 	{
 	case WM_LBUTTONDOWN:
-		m_pt.push_back({ LOWORD(lParam),HIWORD(lParam) });
+		m_pt.push_back(make_pair(POINT{ LOWORD(lParam),HIWORD(lParam) }, 0.f));
 		break;
 	case WM_RBUTTONDOWN:
 		break;
@@ -74,7 +74,7 @@ void CEditScene::BuildObjecsFromD2D1Devices(ID2D1Device2 * pd2dDevice, ID2D1Devi
 
 void CEditScene::Update2D(float fTimeElapsed)
 {
-	m_fTick += fTimeElapsed;
+	for (auto&p : m_pt) p.second += fTimeElapsed;
 }
 
 void CEditScene::Render2D(ID2D1HwndRenderTarget * pd2dDeviceContext)
@@ -84,9 +84,9 @@ void CEditScene::Render2D(ID2D1HwndRenderTarget * pd2dDeviceContext)
 
 	for (auto p : m_pt)
 	{
-		float angle = XMConvertToRadians(m_fTick * 270.f);
-		float x = p.x + cos(angle) * 25.f;
-		float y = p.y + sin(angle) * 25.f;
+		float angle = XMConvertToRadians(p.second * 270.f);
+		float x = p.first.x + cos(angle) * 25.f;
+		float y = p.first.y + sin(angle) * 25.f;
 		pd2dDeviceContext->FillRectangle(RectF(x - 10.f, y - 10.f, x + 10.f, y + 10.f), hbr.Get());
 	}
 }

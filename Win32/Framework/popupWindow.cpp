@@ -176,10 +176,6 @@ bool CPopupWindowBase::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, W
 		{
 		case VK_F1:
 			break;
-		case VK_ESCAPE:
-			::DestroyMessage(true);
-			::PostMessage(m_hWnd, WM_DESTROY, 0, 0);
-			break;
 		}
 		break;
 	default:
