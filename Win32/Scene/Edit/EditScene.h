@@ -28,5 +28,6 @@ public:
 
 private:
 	float m_fTick{ 0.f };
+	vector<POINT>					m_pt;
 };
 

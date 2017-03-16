@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Scene\Edit\EditScene.h"
+#include "Timer\Timer.h"
 #include "popupWindow.h"
 
 
@@ -18,6 +19,9 @@ bool CPopupWindowBase::Initialize(HWND hParentWnd, HINSTANCE hInstance)
 	MyRegisterClass(hInstance);
 	if(!CreatePopupWindow(hParentWnd, hInstance)) return false;
 
+	// 타이머 초기화
+	m_Timer = make_shared<CTimer>();
+
 	// 클래스와 윈도우 프로시저 연결
 	::SetUserDataPtr(m_hWnd, this);
 
@@ -32,9 +36,13 @@ bool CPopupWindowBase::Initialize(HWND hParentWnd, HINSTANCE hInstance)
 	return true;
 }
 
-void CPopupWindowBase::FrameAdvance(float fTimeElapsed)
+void CPopupWindowBase::FrameAdvance()
 {
-	Update(fTimeElapsed);
+	if (!m_Timer->Update()) return;
+	// 직전 Frame으로부터의 시간
+	auto fTick = m_Timer->GetTimeElapsed();
+
+	Update(fTick);
 	Render();
 }
 
@@ -251,7 +259,22 @@ LRESULT CPopupWindowBase::WndProc(HWND hWnd, UINT nMessageID, WPARAM wParam, LPA
 
 	switch (nMessageID)
 	{
-	case WM_CREATE:
+
+	case WM_LBUTTONDOWN:
+	case WM_RBUTTONDOWN:
+	case WM_MOUSEMOVE:
+	case WM_LBUTTONUP:
+	case WM_RBUTTONUP:
+	case WM_MOUSEWHEEL:
+
+	case WM_KEYDOWN:
+	case WM_KEYUP:
+	case WM_CHAR:
+
+	case WM_SIZE:
+
+		::SendMessageToFramework(hWnd, nMessageID, wParam, lParam);
+
 		break;
 
 	default:

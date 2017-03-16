@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+class CTimer;
 class CSceneDirect2D;
 
 
@@ -14,7 +15,7 @@ public:
 
 	bool Initialize(HWND hParentWnd, HINSTANCE hInstance);
 
-	void FrameAdvance(float fTimeElapsed);
+	void FrameAdvance();
 
 
 	HWND GetHwnd() const { return m_hWnd; }
@@ -37,15 +38,16 @@ protected:
 	ATOM MyRegisterClass(HINSTANCE hInstance);
 	bool CreatePopupWindow(HWND hParentWnd, HINSTANCE hInstance);
 
-	HWND			m_hWnd{ nullptr };
-	LPCTSTR			m_szWindowClass{ TEXT("popupBase") };
-	LPCTSTR			m_szTitle{ TEXT("") };
+	HWND							m_hWnd{ nullptr };
+	LPCTSTR							m_szWindowClass{ TEXT("popupBase") };
+	LPCTSTR							m_szTitle{ TEXT("") };
 
-	POINT			m_ptStartPosition{ 20,20 };
+	POINT							m_ptStartPosition{ 20,20 };
 
-	RECT			m_rcClient;
+	RECT							m_rcClient;
 
-	HFONT			m_hFont{ NULL };
+	HFONT							m_hFont{ NULL };
+	shared_ptr<CTimer>				m_Timer;
 
 protected:
 
