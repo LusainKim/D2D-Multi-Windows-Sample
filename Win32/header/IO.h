@@ -21,7 +21,7 @@ inline auto ReadStringListFromFileW(LPCWSTR filePath, TCHAR Separator = '\n')
 
 	if (!ifs.is_open())
 	{
-		_DEBUG_ERROR("부적절한 경로이거나 잘못된 파일입니다!");
+		assert(false && "부적절한 경로이거나 잘못된 파일입니다!");
 		ifs.close();
 		return retvec;
 	}
@@ -65,7 +65,7 @@ inline auto ReadStringListFromFileStoreByTagW(LPCWSTR filePath, TCHAR Separator 
 
 	if (!ifs.is_open())
 	{
-		_DEBUG_ERROR("부적절한 경로이거나 잘못된 파일입니다!");
+		assert(false && "부적절한 경로이거나 잘못된 파일입니다!");
 		ifs.close();
 		return retmap;
 	}
@@ -128,7 +128,7 @@ inline auto ReadStringListFromFileStoreByTagW(LPCWSTR filePath, TCHAR Separator 
 //
 //	if (!ifs.is_open())
 //	{
-//		_DEBUG_ERROR("부적절한 경로이거나 잘못된 파일입니다!");
+//		assert(false && "부적절한 경로이거나 잘못된 파일입니다!");
 //		ifs.close();
 //		return retmap;
 //	}

@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace D2DBitmap
 {
 	template<typename Rect = D2D_RECT_U>

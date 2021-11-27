@@ -37,6 +37,9 @@
     <Filter Include="Framework\Timer">
       <UniqueIdentifier>{707c77dd-f4e1-45a3-9485-74f04450addb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{0b3485ae-aa45-413b-94fd-368d40b58154}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXMain.h">
@@ -108,6 +111,9 @@
     <ClInclude Include="MakeFullscreen.h">
       <Filter>헤더 파일\Util</Filter>
     </ClInclude>
+    <ClInclude Include="Camera\Camera.h">
+      <Filter>Framework\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXMain.cpp">
@@ -136,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="Framework\Timer\Timer.cpp">
       <Filter>Framework\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>Framework\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

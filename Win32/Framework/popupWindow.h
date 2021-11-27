@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-class CTimer;
 class CSceneDirect2D;
 
 
@@ -15,7 +14,7 @@ public:
 
 	bool Initialize(HWND hParentWnd, HINSTANCE hInstance);
 
-	void FrameAdvance();
+	void FrameAdvance(float fTimeElapsed);
 
 
 	HWND GetHwnd() const { return m_hWnd; }
@@ -33,6 +32,15 @@ public:
 
 	virtual void CreateMultithread(ComPtr<ID2D1Multithread>&& mul) { m_pd2dMultithread = mul; }
 
+	template<typename TyScene>
+	void CreateScene(unique_ptr<TyScene>&& scene, wstring Tag, bool bPresent = false)
+	{
+		scene->BuildObjects(Tag, m_hWnd, this);
+		m_lstScenes.push_back(move(scene));
+
+		if (bPresent) m_pCurrentScene = m_lstScenes.back().get();
+	}
+
 protected:
 
 	ATOM MyRegisterClass(HINSTANCE hInstance);
@@ -47,7 +55,6 @@ protected:
 	RECT							m_rcClient;
 
 	HFONT							m_hFont{ NULL };
-	shared_ptr<CTimer>				m_Timer;
 
 protected:
 

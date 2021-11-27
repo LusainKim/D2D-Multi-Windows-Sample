@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Scene\Edit\EditScene.h"
-#include "Timer\Timer.h"
 #include "popupWindow.h"
 
 
@@ -19,9 +18,6 @@ bool CPopupWindowBase::Initialize(HWND hParentWnd, HINSTANCE hInstance)
 	MyRegisterClass(hInstance);
 	if(!CreatePopupWindow(hParentWnd, hInstance)) return false;
 
-	// 타이머 초기화
-	m_Timer = make_shared<CTimer>();
-
 	// 클래스와 윈도우 프로시저 연결
 	::SetUserDataPtr(m_hWnd, this);
 
@@ -30,19 +26,13 @@ bool CPopupWindowBase::Initialize(HWND hParentWnd, HINSTANCE hInstance)
 	UpdateWindow(m_hWnd);
 
 	auto scn = make_unique<CEditScene>();
-	scn->BuildObjects(L"Edit", m_hWnd, this);
-	m_lstScenes.push_back(move(scn));
-	m_pCurrentScene = m_lstScenes.back().get();
+	CreateScene<CEditScene>(move(scn), L"Edit", true);
 	return true;
 }
 
-void CPopupWindowBase::FrameAdvance()
+void CPopupWindowBase::FrameAdvance(float fTimeElapsed)
 {
-	if (!m_Timer->Update()) return;
-	// 직전 Frame으로부터의 시간
-	auto fTick = m_Timer->GetTimeElapsed();
-
-	Update(fTick);
+	Update(fTimeElapsed);
 	Render();
 }
 
